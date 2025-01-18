@@ -1,7 +1,10 @@
 class ProjectInput {
   templateElement: HTMLTemplateElement;
   hostElement: HTMLDivElement;
-  element: DocumentFragment;
+  element: HTMLElement;
+  titleInputElement: HTMLInputElement;
+  descriptionInputElement: HTMLInputElement;
+  peopleInputElement: HTMLInputElement;
 
   constructor() {
     this.templateElement = <HTMLTemplateElement>(
@@ -9,12 +12,38 @@ class ProjectInput {
     );
     this.hostElement = <HTMLDivElement>document.getElementById("app");
 
-    this.element = this.templateElement.content;
-    this.render(this.element);
+    const importedNode = document.importNode(
+      this.templateElement.content,
+      true
+    );
+    this.element = <HTMLFormElement>importedNode.firstElementChild;
+    this.element.id = "user-input";
+
+    this.titleInputElement = <HTMLInputElement>(
+      this.element.querySelector("#title")
+    );
+    this.descriptionInputElement = <HTMLInputElement>(
+      this.element.querySelector("#description")
+    );
+    this.peopleInputElement = this.element.querySelector(
+      "#people"
+    ) as HTMLInputElement;
+
+    this.configure();
+    this.attach();
   }
 
-  private render(element: DocumentFragment) {
-    this.hostElement.append(element);
+  private submitHandler(event: Event) {
+    event.preventDefault();
+    console.log(this.titleInputElement.value);
+  }
+
+  private configure() {
+    this.element.addEventListener("submit", this.submitHandler.bind(this));
+  }
+
+  private attach() {
+    this.hostElement.insertAdjacentElement("afterbegin", this.element);
   }
 }
 
