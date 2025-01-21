@@ -1,0 +1,11 @@
+{
+  "name": "drag-and-drop-app",
+  "version": "1.0.0",
+  "description": "Drag and Drop App for training and integrating TypeScript, Webpack...etc.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mounib OUROUA.",
+  "license": "ISC"
+}
